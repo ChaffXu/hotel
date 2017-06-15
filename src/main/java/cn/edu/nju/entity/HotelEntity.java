@@ -11,6 +11,7 @@ import javax.persistence.*;
 public class HotelEntity {
     private int id;
     private String name = "Hotel";
+
     private String address = "No Set";
     private int status = 0;
     private String description = "No Description Yet";
