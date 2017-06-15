@@ -16,6 +16,7 @@ public class RoomVO {
     private int type = 0;
     private int price = 0;
     private int status = 0;
+    private int level=0;
     private Integer breakfast;
     private String name;
 
@@ -92,5 +93,13 @@ public class RoomVO {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

@@ -191,11 +191,37 @@ public class MemberServiceImpl implements MemberService {
             return result;
         }
 
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> add(int id, int roomId, Timestamp t) {
+        Map<String, Object> result = new TreeMap<>();
+        RoomsEntity entity = roomsRepository.findOne(roomId);
+
+        if (entity != null) {
+//            if (entity.getStatus() == 0) {
+//                entity.setStatus(SystemDefault.ROOM_RESERVED);
+//                roomsRepository.save(entity);
+//            } else {
+//                result.put(SystemDefault.HTTP_RESULT, false);
+//                result.put(SystemDefault.HTTP_REASON, "Room has been occupied");
+//                return result;
+//            }
+
+            if(reservedRepository.findByRoomIdAndTime(roomId,t)!=null){
+                ReservedEntity reservedEntity = new ReservedEntity();
+                reservedEntity.setTime(t);
+                reservedEntity.setMemberId(id);
+                reservedEntity.setRoomId(roomId);
+                reservedRepository.save(reservedEntity);
+            }
 
 
-
-
-
+            result.put(SystemDefault.HTTP_RESULT, true);
+//            result.put(SystemDefault.HTTP_REASON, "Room has been occupied");
+            return result;
+        }
         return null;
     }
 
@@ -264,7 +290,10 @@ public class MemberServiceImpl implements MemberService {
             RoomsEntity roomsEntity = roomsRepository.findOne(entity.getRoomId());
             roomsEntity.setStatus(SystemDefault.ROOM_ACTIVE);
             roomsRepository.save(roomsEntity);
-            reservedRepository.delete(recordToCancel);
+
+//            reservedRepository.delete(recordToCancel);
+            entity.setStatus(2);
+            reservedRepository.save(entity);
             result.put(SystemDefault.HTTP_RESULT, true);
             return result;
         }

@@ -4,6 +4,7 @@ import cn.edu.nju.entity.ReservedEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -19,6 +20,11 @@ public interface ReservedRepository extends CrudRepository<ReservedEntity, Integ
 
     List<ReservedEntity> findByRoomId(int roomId);
 
+    List<ReservedEntity> findByStatus(int status);
+
     @Query(value = "select * from reserved, rooms where hotel_id=? and reserved.room_id=rooms.id", nativeQuery = true)
     List<ReservedEntity> findByHotelId(int id);
+
+    List<ReservedEntity> findByRoomIdAndTime(int roomId, Timestamp t);
+
 }

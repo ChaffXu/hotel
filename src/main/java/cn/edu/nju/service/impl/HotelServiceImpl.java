@@ -257,6 +257,7 @@ public class HotelServiceImpl implements HotelService {
 
 
         LiveMesEntity liveMesEntity = new LiveMesEntity(personNum, personMes, payMethod, memberId, roomId, hotelId);
+
         liveMesEntity = liveMesRepository.save(liveMesEntity);
         if (payRecordEntity != null) {
             payRecordEntity.setLiveId(liveMesEntity.getId());

@@ -4,6 +4,7 @@ import cn.edu.nju.entity.PayRecordEntity;
 import cn.edu.nju.vo.MemberInfoVO;
 import org.springframework.ui.Model;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,7 @@ public interface MemberService {
      * @return
      */
     Map<String,Object> reserve(int id, int roomId);
+    Map<String,Object> add(int id, int roomId, Timestamp t);
 
     Map<String,Object> edit(int id, String name, String mail, String creditCard);
 

@@ -21,6 +21,7 @@ public class RoomsEntity {
     private int area;
     private int breakfast = 0;
     private String name;
+    private Integer level;
 
     public RoomsEntity() {
     }
@@ -32,6 +33,14 @@ public class RoomsEntity {
         this.picUrl = picUrl;
         this.type = type;
         this.price = price;
+    }
+
+    public void setArea(Integer area) {
+        this.area = area;
+    }
+
+    public void setBreakfast(Integer breakfast) {
+        this.breakfast = breakfast;
     }
 
     @GeneratedValue
@@ -174,5 +183,15 @@ public class RoomsEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "level")
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

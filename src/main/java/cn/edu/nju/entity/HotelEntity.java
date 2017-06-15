@@ -15,6 +15,11 @@ public class HotelEntity {
     private int status = 0;
     private String description = "No Description Yet";
     private String picUrl = "";
+    private String city;
+    private int type;
+
+
+
 
 //    @GeneratedValue
     @Id
@@ -101,5 +106,25 @@ public class HotelEntity {
 
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl;
+    }
+
+    @Basic
+    @Column(name = "city")
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Basic
+    @Column(name = "type")
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

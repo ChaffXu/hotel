@@ -20,4 +20,6 @@ public interface RoomsRepository extends JpaRepository<RoomsEntity, Integer> {
     Page<RoomsEntity> findByHotelIdAndStatus(int hotelId, int status, Pageable pageRequest);
     List<RoomsEntity> findByHotelIdAndStatus(int hotelId, int status);
     List<RoomsEntity> findByStatus(int status);
+    List<RoomsEntity> findByHotelIdAndLevel(int hotelId, int level);
+
 }
