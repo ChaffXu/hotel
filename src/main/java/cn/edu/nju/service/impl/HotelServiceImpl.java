@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -273,6 +274,55 @@ public class HotelServiceImpl implements HotelService {
         if (changeReservedStatus) {
             result.put(SystemDefault.HTTP_RESULT, true);
         }
+
+        return result;
+    }
+
+    @Override
+    public synchronized Map<String, Object> addByReserved(int personNum, String personMes, int payMethod, int memberId, int roomId, int hotelId, Timestamp t) {
+        Map<String, Object> result = new TreeMap<>();
+
+        if (!memberService.isActivated(memberId)) {
+            result.put(SystemDefault.HTTP_RESULT, false);
+            result.put(SystemDefault.HTTP_REASON, "Member Not Exists Or Not Activated.");
+            return result;
+        }
+
+        LiveMesEntity liveMesEntity = new LiveMesEntity(personNum, personMes, payMethod, memberId, roomId, hotelId,t);
+        liveMesEntity.setStatus(1);
+        liveMesRepository.save(liveMesEntity);
+
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> addNoReserved(int personNum, String personMes, int payMethod, int memberId, int roomId, int hotelId, Timestamp t) {
+        Map<String, Object> result = new TreeMap<>();
+        List<LiveMesEntity> liveMesEntities=liveMesRepository.findByRoomId(roomId);
+
+        for(int i=0;i<liveMesEntities.size();i++){
+            Timestamp in_t=liveMesEntities.get(i).getInTime();
+            if((in_t.getYear()==t.getYear() )&& (in_t.getMonth()==t.getMonth() )&& (in_t.getDay()==t.getDay())){
+                result.put(SystemDefault.HTTP_RESULT, false);
+                result.put(SystemDefault.HTTP_REASON, "Room has been occupied.");
+                System.out.println("in_time: "+in_t);
+                System.out.println("roomId: "+roomId);
+                System.out.println("Room has been occupied.");
+                System.out.println("**********************");
+                return result;
+            }
+        }
+
+        LiveMesEntity liveMesEntity = new LiveMesEntity(personNum, personMes, payMethod, memberId, roomId, hotelId,t);
+        System.out.println("hotelId "+hotelId);
+        System.out.println("roomId "+memberId);
+        System.out.println("time "+t);
+        System.out.println("paymethod "+payMethod);
+        System.out.println("");
+
+        liveMesEntity.setStatus(1);
+        liveMesRepository.save(liveMesEntity);
+        System.out.println("***********"+liveMesEntity.getId()+"***********");
 
         return result;
     }

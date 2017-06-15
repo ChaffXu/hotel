@@ -3,6 +3,7 @@ package cn.edu.nju.service;
 import cn.edu.nju.entity.*;
 import cn.edu.nju.vo.HotelDetailVO;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -69,7 +70,8 @@ public interface HotelService {
      * @return              success or failure, and reason if fail
      */
     Map<String, Object> addInRecords(int personNum, String personMes, int isMember, int payMethod, int memberId, int roomId, int hotelId, boolean hasReserved);
-
+    Map<String, Object> addByReserved(int personNum, String personMes, int payMethod, int memberId, int roomId, int hotelId, Timestamp t);
+    Map<String, Object> addNoReserved(int personNum, String personMes, int payMethod, int memberId, int roomId, int hotelId, Timestamp t);
 
     /**
      * Return the Hotel Reserved Status

@@ -33,6 +33,16 @@ public class LiveMesEntity {
         this.hotelId = hotelId;
     }
 
+    public LiveMesEntity(int personNum, String personMes, int payMethod, int memberId, int roomId, int hotelId,Timestamp t) {
+        this.personNum = personNum;
+        this.personMes = personMes;
+        this.payMethod = payMethod;
+        this.memberId = memberId;
+        this.roomId = roomId;
+        this.hotelId = hotelId;
+        this.inTime=t;
+    }
+
     @GeneratedValue
     @Id
     @Column(name = "id", nullable = false)
